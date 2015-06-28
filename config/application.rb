@@ -24,3 +24,7 @@ module TranslateWord
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+config.assets.paths << "#{Rails}/vendor/assets/fonts"
+
+

@@ -12,12 +12,18 @@
                 <li>
                   <div class="row">
                     <%= form_tag({controller: :words, action: :create}, id: :text) do  %>
-                      <div class="col-md-1 text-right "><label for="text" class="text-default" >Text</label></div>
                       <div class="col-md-3">
-                        <%= text_field_tag :text, '' ,:class => 'form-control form-sm'%>
+                        <div class="input-group"> 
+                          <%= text_field_tag :text, '' ,:class => 'form-control form-sm', :placeholder => "English sentence: " %>
+                          <span class="input-group-btn">
+                            <button type="submit" class="btn btn-bootstrap ">
+                            <%# submit_tag 'add',:class => 'btn btn-bootstrap' %>
+                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </button>
+                          </span>
+                        </div>
                       </div>
                       <div class="col-md-1">
-                      <%= submit_tag 'add',:class => 'btn btn-bootstrap' %>
                       </div>
                     <% end %>
                     <div class="col-md-1" >
@@ -35,7 +41,7 @@
                         <!--<input type="text" class="form-control" placeholder="Search for...">-->
                         <span class="input-group-btn">
                             
-                            <button type="submit" class="btn btn-default ">
+                            <button type="submit" class="btn btn-bootstrap ">
                               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                             

@@ -1,20 +1,7 @@
 <%- model_class = Word -%>
 
 <%= render 'layouts/title', title: 'Words' %>
-<%= render 'words/header' %>
-
-<%= form_tag("words/search/") do  %>
-  <div class="col-md-1 text-right "><label for="text" class="text-default" >Text</label></div>
-  <div class="col-md-3">
-    <%= text_field_tag :search_word, '' ,:class => 'form-control form-sm'%>
-  </div>
-  <div class="col-md-1">
-    <%= submit_tag 'search',:class => 'btn btn-bootstrap' %>
-  </div>
-<% end %>
+<%# render 'words/header' %>
 
 <%= render "table", words: @words  %>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_word_path,
-            :class => 'btn btn-primary' %>
