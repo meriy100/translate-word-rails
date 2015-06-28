@@ -15,7 +15,7 @@ class WordsController < ApplicationController
 
   def search
     @searched = params[:search_word]
-    @words = Word.find_by(en: @searched)
+    @words = Word.where(en: @searched)
     @text = Text.last
   end
 
