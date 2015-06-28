@@ -25,6 +25,6 @@ module TranslateWord
   end
 end
 
-config.assets.paths << "#{Rails}/vendor/assets/fonts"
+#config.assets.paths << "#{Rails}/vendor/assets/fonts"
 
 
