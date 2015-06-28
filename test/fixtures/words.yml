@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  en: MyString
+  ja: MyString
+  count: 1
+  hide: false
+  text_id: 
+
+two:
+  en: MyString
+  ja: MyString
+  count: 1
+  hide: false
+  text_id: 

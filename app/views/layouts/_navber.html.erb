@@ -1,0 +1,63 @@
+<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-default">
+      <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+
+            </a>
+            <div class="nav-collapse">
+              <ul class="nav">
+                <li>
+                  <div class="row">
+                    <%= form_tag({controller: :words, action: :create}, id: :text) do  %>
+                      <div class="col-md-1 text-right "><label for="text" class="text-default" >Text</label></div>
+                      <div class="col-md-3">
+                        <%= text_field_tag :text, '' ,:class => 'form-control form-sm'%>
+                      </div>
+                      <div class="col-md-1">
+                      <%= submit_tag 'add',:class => 'btn btn-facebook' %>
+                      </div>
+                    <% end %>
+                    <div class="col-md-1" >
+                      <p class="text-success">
+                      <%= link_to 'words', words_path, :class => 'btn  btn-link' %>
+                      </p>
+                    </div>
+                    <div class="col-md-1" >
+                      <%= link_to 'texts', texts_path, :class => 'btn btn-link'%>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

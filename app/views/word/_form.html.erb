@@ -1,0 +1,59 @@
+<%= form_for @word, :html => { :class => "form-horizontal word" } do |f| %>
+
+    <% if @word.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@word.errors.count, "error") %> prohibited this word from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @word.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :en, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :en, :class => 'form-control' %>
+    </div>
+    <%= error_span(@word[:en]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :ja, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ja, :class => 'form-control' %>
+    </div>
+    <%= error_span(@word[:ja]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :count, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :count, :class => 'form-control' %>
+    </div>
+    <%= error_span(@word[:count]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :hide, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :hide, :class => 'form-control' %>
+    </div>
+    <%= error_span(@word[:hide]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :text_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :text_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@word[:text_id]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            words_path, :class => 'btn btn-default' %>
+
+<% end %>
