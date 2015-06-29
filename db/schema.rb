@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615074043) do
+ActiveRecord::Schema.define(version: 20150615074011) do
 
   create_table "texts", force: :cascade do |t|
     t.string   "entext"
