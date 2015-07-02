@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  milk_tea:
+    word: "words"
+    text: "text"

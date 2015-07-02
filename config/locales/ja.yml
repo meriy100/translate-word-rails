@@ -1,5 +1,10 @@
 ---
 ja:
+  milk_tea:
+    word: 単語
+    text: 文章
+
+
   date:
     abbr_day_names:
     - 日
