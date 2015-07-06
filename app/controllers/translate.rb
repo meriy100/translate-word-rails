@@ -50,6 +50,33 @@ require "lemmatizer"
     
   end
 
+def leaf_parse doc
+  ja_list = []
+  div_list  = doc.css "div"
+  ch_list = nil
+  div_list.each do |cell|
+    if attr_class = cell.attributes['class']
+      if attr_class.value == "contents-wrap-b-in"
+        ch_list = cell.children 
+        break
+      end
+    end
+  end
+  ch_list.each do |ch|
+    if ch_attr_class = ch.attributes['class']
+      if ch_attr_class.value =="content-box"
+        ch.css('li').each do |li|
+          if li.attributes["class"].value == "in-ttl-b text-indent"
+            ja_list.push li.inner_text
+          end
+        end
+      end
+    end
+  end
+  ja_list
+end
+
+
 def translate_goo_en_to_ja word_en, output = :one  
   ja_list = []
   goo_home ="http://dictionary.goo.ne.jp/"
@@ -62,51 +89,25 @@ def translate_goo_en_to_ja word_en, output = :one
   end
 
   doc = Nokogiri::HTML(html)
-  #検索結果のブロックをリスト化
-=begin
-  dl_list  = doc.css "dl"
-  dl_list.each do |cell|
-    attributes = cell.attributes
-    if attributes["class"]
-      if attributes["class"].value = "list-search-a-in"
-        ja_list[cell.children[1].text] = cell.children[3].text
-      end
-    end
-  end
-=end
-  ul_list  = doc.css "ul"
-  ul_list.each do |cell|
-    attributes = cell.attributes
-    if attr_class = attributes["class"]
-      if attr_class.value == "list-search-a"
-        word_url = cell.css('li').css('a').first.attributes["href"]
-        goo_word_url="#{goo_home}#{word_url}"
-        begin
-          htmlw = open(goo_word_url,"User-Agent"=>userAgent).read
-        rescue Exception =>e
-          puts e
-        end
-        doc = Nokogiri::HTML(htmlw)
-        div_list  = doc.css "div"
-        ch_list = nil
-        div_list.each do |cell|
-          if attr_class = cell.attributes['class']
-            if attr_class.value == "contents-wrap-b-in"
-              ch_list = cell.children 
-              break
-            end
+  return puts doc if output == "debug"
+  #----------------if direct(leaf) or search-----------------------------
+  if doc.title =~ /意味/
+    ja_list = leaf_parse doc
+  else 
+    ul_list  = doc.css "ul"
+    ul_list.each do |cell|
+      attributes = cell.attributes
+      if attr_class = attributes["class"]
+        if attr_class.value == "list-search-a"
+          word_url = cell.css('li').css('a').first.attributes["href"]
+          goo_word_url="#{goo_home}#{word_url}"
+          begin
+            html_leaf = open(goo_word_url,"User-Agent"=>userAgent).read
+          rescue Exception =>e
+            puts e
           end
-        end
-        ch_list.each do |ch|
-          if ch_attr_class = ch.attributes['class']
-            if ch_attr_class.value =="content-box"
-              ch.css('li').each do |li|
-                if li.attributes["class"].value == "in-ttl-b text-indent"
-                  ja_list.push li.inner_text
-                end
-              end
-            end
-          end
+          doc = Nokogiri::HTML(html_leaf)
+          ja_list =  leaf_parse doc
         end
       end
     end
@@ -114,8 +115,6 @@ def translate_goo_en_to_ja word_en, output = :one
 
   puts "--------------------------"
   ja_list.first
-    
-  
 end
 
 def word_lem word
@@ -139,7 +138,8 @@ end
 
 
 if ARGV.length >0
-  text = translate_goo_en_to_ja ARGV[0]
+  output = ARGV.length > 1 ? ARGV[1] : :one
+  text = translate_goo_en_to_ja ARGV[0], output
 else
   text = translate_en_to_jp "apple"
 end
