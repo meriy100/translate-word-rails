@@ -110,8 +110,8 @@ class WordsController < ApplicationController
         lem = Lemmatizer.new
         word = lem.lemma(word)
         unless @data =  Word.find_by(en: word)
-          ja_word =  translate_goo_en_to_ja word
-         #sleep 0.25
+          ja_word = translate_goo_en_to_ja word
+          #sleep 0.25
           # Word.create en: word, ja: ja_word, count: 1
           w = Word.new en: word, ja: ja_word, hide: false, count: 1, text_id: text.id 
           w.save

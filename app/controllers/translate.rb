@@ -50,6 +50,17 @@ require "lemmatizer"
     
   end
 
+def list_cut_length list, len
+  rem = len - list.first.length unless list.empty?
+  if list.empty?
+    ""
+  elsif rem > 0
+    list.shift + list_cut_length(list, rem)
+  else
+    list.shift 
+  end
+end
+
 def leaf_parse doc
   ja_list = []
   div_list  = doc.css "div"
@@ -79,42 +90,42 @@ end
 
 def translate_goo_en_to_ja word_en, output = :one  
   ja_list = []
-  goo_home ="http://dictionary.goo.ne.jp/"
-  goo_url="#{goo_home}srch/ej/#{word_en}/m0u/"
+  goo_home ="http://dictionary.goo.ne.jp"
+  goo_url="#{goo_home}/srch/ej/#{word_en}/m0u/"
   userAgent = "Mozilla/#{rand 100}.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; "  
   begin
     html = open(goo_url,"User-Agent"=>userAgent).read
-  rescue Exception =>e
-    puts e
-  end
-
-  doc = Nokogiri::HTML(html)
-  return puts doc if output == "debug"
-  #----------------if direct(leaf) or search-----------------------------
-  if doc.title =~ /意味/
-    ja_list = leaf_parse doc
-  else 
-    ul_list  = doc.css "ul"
-    ul_list.each do |cell|
-      attributes = cell.attributes
-      if attr_class = attributes["class"]
-        if attr_class.value == "list-search-a"
-          word_url = cell.css('li').css('a').first.attributes["href"]
-          goo_word_url="#{goo_home}#{word_url}"
-          begin
-            html_leaf = open(goo_word_url,"User-Agent"=>userAgent).read
-          rescue Exception =>e
-            puts e
+    doc = Nokogiri::HTML(html)
+    return puts doc if output == "debug"
+    #----------------if direct(leaf) or search-----------------------------
+    if doc.title =~ /意味/
+      ja_list = leaf_parse doc
+    else 
+      ul_list  = doc.css "ul"
+      ul_list.each do |cell|
+        attributes = cell.attributes
+        if attr_class = attributes["class"]
+          if attr_class.value == "list-search-a"
+            word_url = cell.css('li').css('a').first.attributes["href"]
+            goo_word_url="#{goo_home}#{word_url}" #leaf page url
+            begin
+              html_leaf = open(goo_word_url,"User-Agent"=>userAgent).read
+              doc = Nokogiri::HTML(html_leaf)
+              ja_list =  leaf_parse doc
+            rescue Exception =>e
+              puts e
+              ja_list.push e
+            end
           end
-          doc = Nokogiri::HTML(html_leaf)
-          ja_list =  leaf_parse doc
         end
       end
     end
+  rescue Exception =>e
+    puts e
+    ja_list.push e
   end
 
-  puts "--------------------------"
-  ja_list.first
+  list_cut_length ja_list, 50
 end
 
 def word_lem word
