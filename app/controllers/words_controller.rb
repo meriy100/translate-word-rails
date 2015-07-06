@@ -47,7 +47,7 @@ class WordsController < ApplicationController
     text = Text.new entext: params[:text]
     text.save
     line = parsing params[:text]
-     line_translate line, text
+     line_translate line, text.id
     respond_to do |format|
       format.html { redirect_to :back }
     end
@@ -104,14 +104,14 @@ class WordsController < ApplicationController
     end
 
 
-    def line_translate line, text
+    def line_translate line, text_id
       lem = Lemmatizer.new
       line.each do |word|
         word.downcase!
         word = lem.lemma(word)
         unless @data =  Word.find_by(en: word)
           ja_word = translate_goo_en_to_ja word
-          w = Word.new en: word, ja: ja_word, hide: false, count: 1, text_id: text.id 
+          w = Word.new en: word, ja: ja_word, hide: false, count: 1, text_id: text_id 
           w.save
         else
           @data.update( {count: @data.count + 1 })
