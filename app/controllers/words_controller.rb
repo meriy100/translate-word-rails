@@ -44,9 +44,10 @@ class WordsController < ApplicationController
   # POST /words
   # POST /words.json
   def create
-    text = Text.new entext: params[:text]
+    text_str = params[:text]
+    text = Text.new entext: text_str
     text.save
-    line = parsing params[:text]
+    line = parsing text_str
      line_translate line, text.id
     respond_to do |format|
       format.html { redirect_to :back }
