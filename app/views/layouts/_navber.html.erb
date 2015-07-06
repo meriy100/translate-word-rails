@@ -28,11 +28,11 @@
                     <% end %>
                     <div class="col-md-1" >
                       <p class="text-success">
-                      <%= link_to 'words', words_path, :class => 'btn  btn-link' %>
+                      <%= link_to t('milk_tea.word'), words_path, :class => 'btn  btn-link' %>
                       </p>
                     </div>
                     <div class="col-md-1" >
-                      <%= link_to 'texts', texts_path, :class => 'btn btn-link'%>
+                      <%= link_to t('milk_tea.text'), texts_path, :class => 'btn btn-link'%>
                     </div>
                     
                     <%= form_tag("words/search/") do  %>
