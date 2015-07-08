@@ -43,13 +43,23 @@ group :development, :test do
  # Use sqlite3 as the database for Active Record
  gem 'sqlite3'
  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
+#  gem 'byebug'
+  
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'rails-erd'
+  gem 'better_errors'          # エラー画面を見やすくする
+  gem 'binding_of_caller'      # better_errorsのエラー画面でREPLが使える
+  gem 'tapp'                   # プリントデバッグがしやすくなる
+  gem 'pry-rails'              # railsでpryが使える
+  gem 'pry-byebug'             # pryでデバックコマンドが使える
+  gem 'awesome_print'          # プリントデバッグの出力を整形
+  gem 'hirb'                   # SQLの結果を見やすく整形してくれる
+  gem 'hirb-unicode'           # hirbの日本語対応'
+
 end
 
 
