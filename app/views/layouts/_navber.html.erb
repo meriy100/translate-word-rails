@@ -32,25 +32,26 @@
                       </p>
                     </div>
                     <div class="col-md-1" >
-                      <%= link_to t('milk_tea.text'), texts_path, :class => 'btn btn-link'%>
+                      <%= link_to t('milk_tea.text'), texts_path, class: 'btn btn-link'%>
                     </div>
-                    
-                    <%= form_tag("words/search/") do  %>
-                      <div class="input-group">
-                        <%= text_field_tag :search_word, '', :class => 'form-control form-sm', :placeholder => "search word" 	%>
-                        <!--<input type="text" class="form-control" placeholder="Search for...">-->
-                        <span class="input-group-btn">
-                            
+                    <div class= 'col-md-4'> 
+                      <%= form_tag("words/search/") do  %>
+                        <div class="input-group">
+                          <%= text_field_tag :search_word, '', class:  'form-control form-sm', placeholder: "search word" 	%>
+                          <!--<input type="text" class="form-control" placeholder="Search for...">-->
+                          <span class="input-group-btn">
                             <button type="submit" class="btn btn-bootstrap ">
                               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
-                            
-                            <!--<button class="btn btn-default" type="button">Go!</button>-->
-                                                
-                        </span>
-                      </div><!-- /input-group -->
+                          </span>
+                        </div><!-- /input-group -->
+                      <% end %>
+                    </div>
+                    <div class='col-md-2'>
+                    <% I18n.available_locales.reject{|l| l == I18n.locale}.each do |locale| %>
+                      <%= link_to(locale, i18n_url_for(params.merge(locale: locale))) %>
                     <% end %>
-                    
+                    </div>
                   </div>
                 </li>
               </ul>

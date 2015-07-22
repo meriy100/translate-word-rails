@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root :to => 'words#index'
+  root to: 'words#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -17,9 +17,13 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
   put 'words/:id/hide' => 'words#hide', as: :hide_word
   get 'words/view/:en' => 'words#view', as: :view_word
-  get 'words/search/:search_word' => 'words#search', as: :search_word 
+  get 'words/search/:search_word' => 'words#search', as: :search_word
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+
+  scope '(:locale)', /ja/ do
+    resources :posts, param: :slug
+  end
 
   # Example resource route with options:
   #   resources :products do
