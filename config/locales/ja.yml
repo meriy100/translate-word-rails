@@ -198,3 +198,17 @@ ja:
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
     pm: 午後
+
+
+  activerecord:
+    models:
+      text: 文章
+      word: 単語
+    attributes:
+      text:
+        entext: 英文
+      word:
+        en: 英単語
+        ja: 日本語訳
+        count: 出現回数
+        hide: 表示
