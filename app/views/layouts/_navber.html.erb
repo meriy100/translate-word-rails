@@ -35,10 +35,9 @@
                       <%= link_to t('milk_tea.text'), texts_path, class: 'btn btn-link'%>
                     </div>
                     <div class= 'col-md-4'> 
-                      <%= form_tag("words/search/") do  %>
+                      <%= form_tag('/words/search') do  %>
                         <div class="input-group">
                           <%= text_field_tag :search_word, '', class:  'form-control form-sm', placeholder: "search word" 	%>
-                          <!--<input type="text" class="form-control" placeholder="Search for...">-->
                           <span class="input-group-btn">
                             <button type="submit" class="btn btn-bootstrap ">
                               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
