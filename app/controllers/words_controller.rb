@@ -79,19 +79,14 @@ class WordsController < ApplicationController
     end
   end
 
-
   def view
-    word = params[:id].downcase
+    word = params[:en].downcase
     lem = Lemmatizer.new
     word = lem.lemma(word)
     @searched = Word.where(en: word).first
-
-    @jsearched = {'en' => @searched.en, 'ja' => @searched.ja }
+    @jsearched = {'en' => @searched.en, 'ja' => @searched.ja, 'id' => @searched.id }
     render :json => @jsearched
-    p '----------------------------------'
-    p params[:id]
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

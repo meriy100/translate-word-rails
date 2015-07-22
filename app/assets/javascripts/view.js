@@ -12,6 +12,7 @@ $(document).on('ready page:load', function() {
         $(".modal-header").find("#result_en").html('<span>'+ data.en + '</span>');
         $(".modal-body").find("#result_en").html('<span>'+ data.en + '</span>');
         $(".modal-body").find("#result_ja").html('<span>'+ data.ja + '</span>');
+        $(".modal-footer").find("result_id").val(data.id);
         $('#myModal').modal('show');
       }
     }); 
