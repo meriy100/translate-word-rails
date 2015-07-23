@@ -33,6 +33,7 @@ class WordsController < ApplicationController
   # GET /words/1/edit
   def edit
   end
+
   def hide
     logger.debug "to_hide"
     @word = Word.find params[:id]

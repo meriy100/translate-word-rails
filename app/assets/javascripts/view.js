@@ -13,6 +13,7 @@ $(document).on('ready page:load', function() {
         $(".modal-body").find("#result_en").html('<span>'+ data.en + '</span>');
         $(".modal-body").find("#result_ja").html('<span>'+ data.ja + '</span>');
         $(".modal-footer").find("result_id").val(data.id);
+        $("#modal-button").attr("onclick", "location.href='words/" + data.id + "/edit/'");
         $('#myModal').modal('show');
       }
     }); 
