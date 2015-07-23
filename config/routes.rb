@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  resources :texts
-  resources :words
 
-  match ':controller(/:action(/:id))', via: [:get, :post, :patch]
+#  match ':controller(/:action(/:id))', via: [:get, :post, :patch]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -15,11 +13,19 @@ Rails.application.routes.draw do
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-  put 'words/:id/hide' => 'words#hide', as: :hide_word
-  get 'words/view/:en' => 'words#view', as: :view_word
-  get 'words/search/:search_word' => 'words#search', as: :search_word
+  resources :words do
+    member do
+      put 'hide' => 'words#hide', as: :hide
+    end
+    collection do
+      get 'view/:en' => 'words#view', as: :view
+      get 'search/:search_word' => 'words#search', as: :search
+    end
+  end
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+  
+  resources :texts
 
   scope '(:locale)', /ja/ do
     resources :posts, param: :slug
