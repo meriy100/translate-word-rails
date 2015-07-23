@@ -59,6 +59,7 @@
       <div class="modal-footer">
         <%# link_to t('helpers.link.edit'), edit_word_path, remote: true  %>
         <button type="button" class="btn btn-bootstrap" id="modal-button" onclick="location.href='words/:id/'">
+          <%= t :edit, scope: [:helpers, :links] %>
         </button>
         <button type="button" class="btn btn-bootstrap" data-dismiss="modal">
           Close 
