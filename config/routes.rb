@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :texts
-  resources :words
 
 #  match ':controller(/:action(/:id))', via: [:get, :post, :patch]
 
@@ -26,6 +24,8 @@ Rails.application.routes.draw do
   end
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+  
+  resources :texts
 
   scope '(:locale)', /ja/ do
     resources :posts, param: :slug
